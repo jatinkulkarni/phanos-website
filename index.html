@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Photography Assistant</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    /* === Parallax Header === */
+    .hero {
+      background: url('your-parallax-image.jpg') center / cover no-repeat fixed;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      background-color: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    /* === Prototype Showcase === */
+    .prototype-showcase {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      perspective: 1000px;
+    }
+
+    .prototype-container {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .prototype-image {
+      position: absolute;
+      width: 350px;
+      height: auto;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      transition: all 0.3s ease-out;
+      object-fit: contain;
+    }
+
+    .prototype-front {
+      left: 45%;
+      top: 50%;
+      transform: translate(-50%, -50%) translateZ(0);
+      z-index: 2;
+    }
+
+    .prototype-slanted {
+      left: 55%;
+      top: 50%;
+      transform: translate(-50%, -50%) translateZ(-100px) rotateY(-15deg);
+      z-index: 1;
+    }
+
+    .prototype-content {
+      position: absolute;
+      left: 20%;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: left;
+      max-width: 400px;
+      z-index: 3;
+    }
+
+    .prototype-content h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .prototype-content p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #cccccc;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .prototype-content {
+        left: 10%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .prototype-showcase {
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 20px;
+      }
+
+      .prototype-container {
+        flex-direction: column;
+      }
+
+      .prototype-content {
+        position: relative;
+        left: 0;
+        transform: none;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .prototype-image {
+        width: 280px;
+      }
+
+      .prototype-front {
+        left: 50%;
+        top: 60%;
+      }
+
+      .prototype-slanted {
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -50%) translateZ(-50px) rotateY(-10deg);
+      }
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin: 0 0 20px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+
+    button {
+      background: #ffffff;
+      color: #121212;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #e0e0e0;
+    }
+
+    /* === Shared Section Styling === */
+    section, footer {
+      padding: 80px 20px;
+      text-align: center;
+      background: #1a1a1a;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    p, ul {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    /* === Reveal Animation === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    video, img {
+      max-width: 90%;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: transform 0.5s ease;
+    }
+
+    .reveal.visible video,
+    .reveal.visible img {
+      transform: scale(1.03);
+    }
+
+    /* === CTA Form === */
+    input[type="email"] {
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #333;
+      border-radius: 4px;
+      width: 250px;
+      margin-right: 10px;
+      background-color: #2a2a2a;
+      color: #ffffff;
+    }
+
+    input[type="email"]::placeholder {
+      color: #888;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    /* === Footer === */
+    footer {
+      background: #121212;
+      font-size: 0.9em;
+    }
+
+    footer ul {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 0;
+      margin: 20px 0 0;
+    }
+
+    footer li {
+      display: inline;
+    }
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      input[type="email"] {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+      }
+
+      button {
+        display: block;
+        margin: 10px auto;
+      }
+
+      footer ul {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Capture Stunning Photos, Instantly.</h1>
+    <p>Your AI-powered photography assistant that guides you in real time — no more guesswork, just perfect shots.</p>
+    <button>Join the Waitlist</button>
+  </header>
+
+  <section class="prototype-showcase">
+    <div class="prototype-content">
+      <h2>Your AI Photography Guide</h2>
+      <p>Experience the future of mobile photography with real-time AI guidance. Our app helps you capture perfect shots before you even press the shutter.</p>
+    </div>
+    <div class="prototype-container">
+      <img src="slant-image.png" alt="AI Photo Assistant Prototype Slanted View" class="prototype-image prototype-slanted">
+      <img src="front-image.png" alt="AI Photo Assistant Prototype Front View" class="prototype-image prototype-front">
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Struggling to Get the Perfect Shot?</h2>
+    <ul>
+      <li>😖 Wasting time on trial and error?</li>
+      <li>🌀 Relying on editing apps after the fact?</li>
+      <li>📸 Missing the perfect moment?</li>
+    </ul>
+    <p>You're not alone — even pros get frustrated. That's why we built this.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>Real-Time, On-Camera Guidance</h2>
+    <video autoplay loop muted>
+      <source src="demo-video.mp4" type="video/mp4">
+    </video>
+    <p>Our app uses your phone's camera and AI to guide your hand — centering your shot, suggesting angles, and helping you nail it in one take.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>Why Now?</h2>
+    <ul>
+      <li><strong>Smartphones are smarter</strong> – LiDAR, depth sensors, and AI-ready cameras make this possible.</li>
+      <li><strong>Everyone wants better photos</strong> – Instagram and TikTok have raised the bar for aesthetics.</li>
+      <li><strong>AI is expected</strong> – Consumers expect personalization and guidance in everything they do.</li>
+    </ul>
+  </section>
+
+  <section class="reveal">
+    <h2>Who It's For</h2>
+    <ul>
+      <li>📱 Social Media Enthusiasts</li>
+      <li>✈️ Casual Travelers</li>
+      <li>🎥 Aspiring Content Creators</li>
+      <li>👨‍👩‍👧‍👦 Families & Parents</li>
+    </ul>
+  </section>
+
+  <section class="reveal">
+    <h2>No One Else Does This</h2>
+    <p>Others help you fix photos after the fact. We help you get it right before you press the shutter.</p>
+    <img src="comparison-chart.png" alt="Comparison Chart" />
+  </section>
+
+  <section class="reveal">
+    <h2>Take the Shot. Perfectly.</h2>
+    <p>Join our early access list and be the first to experience the future of mobile photography.</p>
+    <form>
+      <input type="email" placeholder="Enter your email" />
+      <button>Get Early Access</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 AI Photo Assistant. Built for creators, by creators.</p>
+    <ul>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const prototypeImages = document.querySelectorAll('.prototype-image');
+    
+    const revealOnScroll = () => {
+      reveals.forEach((el) => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    };
+
+    const parallaxEffect = () => {
+      const scrolled = window.pageYOffset;
+      const frontImage = document.querySelector('.prototype-front');
+      const slantedImage = document.querySelector('.prototype-slanted');
+      const container = document.querySelector('.prototype-container');
+      
+      // Calculate the parallax effect based on scroll position
+      const containerTop = container.getBoundingClientRect().top;
+      const containerHeight = container.offsetHeight;
+      
+      // Only apply parallax when the container is in view
+      if (containerTop < window.innerHeight && containerTop > -containerHeight) {
+        const progress = (window.innerHeight - containerTop) / (window.innerHeight + containerHeight);
+        
+        // Smooth parallax effect
+        frontImage.style.transform = `translate(-50%, ${-50 + progress * 20}%) translateZ(0)`;
+        slantedImage.style.transform = `translate(-50%, ${-50 + progress * 30}%) translateZ(-100px) rotateY(-15deg)`;
+      }
+    };
+
+    window.addEventListener('scroll', () => {
+      revealOnScroll();
+      parallaxEffect();
+    });
+    window.addEventListener('load', revealOnScroll);
+  </script>
+
+</body>
+</html>
