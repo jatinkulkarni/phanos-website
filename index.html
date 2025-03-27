@@ -203,6 +203,27 @@
       transform: translateY(0);
     }
 
+    /* === Table Animation === */
+    .table-cell {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s ease;
+    }
+
+    .table-cell.our-app {
+      transform: translateX(20px);
+    }
+
+    .table-cell.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .table-cell:nth-child(1) { transition-delay: 0.1s; }
+    .table-cell:nth-child(2) { transition-delay: 0.2s; }
+    .table-cell:nth-child(3) { transition-delay: 0.3s; }
+    .table-cell:nth-child(4) { transition-delay: 0.4s; }
+
     video, img {
       max-width: 90%;
       margin-top: 30px;
@@ -217,7 +238,8 @@
     }
 
     /* === CTA Form === */
-    input[type="email"] {
+    input[type="email"],
+    input[type="text"] {
       padding: 10px;
       font-size: 1em;
       border: 1px solid #333;
@@ -228,12 +250,18 @@
       color: #ffffff;
     }
 
-    input[type="email"]::placeholder {
+    input[type="email"]::placeholder,
+    input[type="text"]::placeholder {
       color: #888;
     }
 
     form {
       margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
     }
 
     /* === Footer === */
@@ -269,7 +297,8 @@
         font-size: 2em;
       }
 
-      input[type="email"] {
+      input[type="email"],
+      input[type="text"] {
         display: block;
         width: 80%;
         margin: 10px auto;
@@ -291,7 +320,7 @@
   <header class="hero">
     <h1>Capture Stunning Photos, Instantly.</h1>
     <p>Your AI-powered photography assistant that guides you in real time — no more guesswork, just perfect shots.</p>
-    <button>Join the Waitlist</button>
+    <button onclick="document.getElementById('signup-section').scrollIntoView({behavior: 'smooth'})">Join the Waitlist</button>
   </header>
 
   <section class="prototype-showcase">
@@ -344,21 +373,63 @@
 
   <section class="reveal">
     <h2>No One Else Does This</h2>
-    <p>Others help you fix photos after the fact. We help you get it right before you press the shutter.</p>
-    <img src="comparison-chart.png" alt="Comparison Chart" />
+    <p>See how we compare to the tools you already use:</p>
+  
+    <table style="margin: 40px auto; border-collapse: collapse; width: 90%; max-width: 700px; background: #2a2a2a; border-radius: 8px; overflow: hidden;">
+      <thead style="background: #1a1a1a;">
+        <tr>
+          <th style="padding: 15px; color: #ffffff;">Feature</th>
+          <th style="padding: 15px; color: #ffffff;">Our App</th>
+          <th style="padding: 15px; color: #ffffff;">Apple/Google Camera AI</th>
+          <th style="padding: 15px; color: #ffffff;">Lensa / Facetune</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">Real-Time Guidance</td>
+          <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+        </tr>
+        <tr>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">AI-Based Composition Suggestions</td>
+          <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+        </tr>
+        <tr>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">Works Before Taking Photo</td>
+          <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ff9800;">Limited</td>
+          <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+        </tr>
+        <tr>
+          <td class="table-cell" style="padding: 15px; color: #ffffff;">Smartphone First</td>
+          <td class="table-cell our-app" style="padding: 15px; color: #4CAF50;">✓</td>
+          <td class="table-cell" style="padding: 15px; color: #4CAF50;">✓</td>
+          <td class="table-cell" style="padding: 15px; color: #4CAF50;">✓</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p style="margin-top: 30px;">Most tools help *after* the photo is taken. We help you get it right the first time.</p>
   </section>
+  
 
-  <section class="reveal">
+  <section class="reveal" id="signup-section">
     <h2>Take the Shot. Perfectly.</h2>
     <p>Join our early access list and be the first to experience the future of mobile photography.</p>
-    <form>
-      <input type="email" placeholder="Enter your email" />
-      <button>Get Early Access</button>
+    <form id="waitlist-form" action="https://formspree.io/f/xeoalodv" method="POST" onsubmit="handleSubmit(event)">
+      <input type="text" name="firstName" placeholder="First Name" required />
+      <input type="text" name="lastName" placeholder="Last Name" required />
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">Get Early Access</button>
     </form>
+    <p id="form-message" style="display: none; color: #4CAF50; margin-top: 10px;"></p>
   </section>
 
   <footer>
-    <p>© 2025 AI Photo Assistant. Built for creators, by creators.</p>
+    <p>© 2025 Phanos. Built for creators, by creators.</p>
     <ul>
       <li><a href="#">Privacy</a></li>
       <li><a href="#">Terms</a></li>
@@ -369,12 +440,20 @@
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const prototypeImages = document.querySelectorAll('.prototype-image');
+    const tableCells = document.querySelectorAll('.table-cell');
     
     const revealOnScroll = () => {
       reveals.forEach((el) => {
         const top = el.getBoundingClientRect().top;
         if (top < window.innerHeight - 100) {
           el.classList.add('visible');
+          
+          // If this is the table section, animate the cells
+          if (el.querySelector('table')) {
+            tableCells.forEach(cell => {
+              cell.classList.add('visible');
+            });
+          }
         }
       });
     };
@@ -404,6 +483,33 @@
       parallaxEffect();
     });
     window.addEventListener('load', revealOnScroll);
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const messageEl = document.getElementById('form-message');
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          messageEl.textContent = 'Thanks for joining! We\'ll be in touch soon.';
+          messageEl.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        messageEl.textContent = 'Oops! Something went wrong. Please try again.';
+        messageEl.style.display = 'block';
+      }
+    }
   </script>
 
 </body>
