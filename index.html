@@ -227,10 +227,12 @@
 
     video, img {
       max-width: 90%;
+      max-height: 60vh;
       margin-top: 30px;
       border-radius: 10px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       transition: transform 0.5s ease;
+      object-fit: contain;
     }
 
     .reveal.visible video,
@@ -348,7 +350,7 @@
   <section class="reveal">
     <h2>Real-Time, On-Camera Guidance</h2>
     <video autoplay loop muted>
-      <source src="demo-video.mp4" type="video/mp4">
+      <source src="demo.mp4" type="video/mp4">
     </video>
     <p>Our app uses your phone's camera and AI to guide your hand — centering your shot, suggesting angles, and helping you nail it in one take.</p>
   </section>
