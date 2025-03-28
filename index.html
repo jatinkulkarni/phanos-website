@@ -17,6 +17,11 @@
       color: #ffffff;
     }
 
+    /* === Color Variables === */
+    :root {
+      --primary: #641dff;
+    }
+
     /* === Parallax Header === */
     .hero {
       background: url('your-parallax-image.jpg') center / cover no-repeat fixed;
@@ -26,8 +31,27 @@
       background-color: #1a1a1a;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
       height: 100vh;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin: 0 0 20px;
+      max-width: 800px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .hero button {
+      width: auto;
+      min-width: 200px;
+      margin: 0 auto;
     }
 
     /* === Prototype Showcase === */
@@ -160,16 +184,7 @@
       }
     }
 
-    .hero h1 {
-      font-size: 3em;
-      margin: 0 0 20px;
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      margin-bottom: 40px;
-    }
-
+    /* === Button Styles === */
     button {
       background: #ffffff;
       color: #121212;
@@ -177,11 +192,13 @@
       padding: 12px 24px;
       font-size: 1em;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      border: 2px solid var(--primary);
     }
 
     button:hover {
-      background: #e0e0e0;
+      background: var(--primary);
+      color: #ffffff;
     }
 
     /* === Shared Section Styling === */
@@ -191,9 +208,11 @@
       background: #1a1a1a;
     }
 
+    /* === Section Headers === */
     h2 {
       font-size: 2em;
       margin-bottom: 20px;
+      color: var(--primary);
     }
 
     p, ul {
@@ -231,7 +250,7 @@
     }
 
     .table-cell.our-app {
-      transform: translateX(20px);
+      color: var(--primary) !important;
     }
 
     .table-cell.visible {
@@ -365,6 +384,7 @@
 
     thead {
       background: #1a1a1a;
+      border-bottom: 2px solid var(--primary);
     }
 
     @media (max-width: 768px) {
@@ -403,10 +423,14 @@
         width: 60px;
       }
     }
+
+    /* === Form Message === */
+    #form-message {
+      color: var(--primary) !important;
+    }
   </style>
 </head>
 <body>
-
   <header class="hero">
     <h1>Capture Stunning Photos, Instantly.</h1>
     <p>Your AI-powered photography assistant that guides you in real time — no more guesswork, just perfect shots.</p>
