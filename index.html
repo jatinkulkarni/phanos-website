@@ -335,6 +335,74 @@
         flex-direction: column;
       }
     }
+
+    /* === Table Styles === */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 20px -20px;
+      padding: 0 20px;
+    }
+
+    table {
+      margin: 40px auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 700px;
+      background: #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      color: #ffffff;
+    }
+
+    td {
+      border-bottom: 1px solid #333;
+    }
+
+    thead {
+      background: #1a1a1a;
+    }
+
+    @media (max-width: 768px) {
+      .table-responsive {
+        margin: 20px -15px;
+        padding: 0 15px;
+      }
+
+      table {
+        margin: 20px auto;
+        font-size: 0.9em;
+        width: 100%;
+      }
+
+      th, td {
+        padding: 12px 8px;
+      }
+
+      th:not(:first-child),
+      td:not(:first-child) {
+        width: 80px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      table {
+        font-size: 0.85em;
+      }
+
+      th, td {
+        padding: 10px 6px;
+      }
+
+      th:not(:first-child),
+      td:not(:first-child) {
+        width: 60px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -398,39 +466,39 @@
     <p>See how we compare to the tools you already use:</p>
   
     <div class="table-responsive">
-      <table style="margin: 40px auto; border-collapse: collapse; width: 90%; max-width: 700px; background: #2a2a2a; border-radius: 8px; overflow: hidden;">
-        <thead style="background: #1a1a1a;">
+      <table>
+        <thead>
           <tr>
-            <th style="padding: 15px; color: #ffffff;">Feature</th>
-            <th style="padding: 15px; color: #ffffff;">Our App</th>
-            <th style="padding: 15px; color: #ffffff;">Apple/Google Camera AI</th>
-            <th style="padding: 15px; color: #ffffff;">Lensa / Facetune</th>
+            <th>Feature</th>
+            <th>Our App</th>
+            <th>Apple/Google</th>
+            <th>Lensa</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">Real-Time Guidance</td>
-            <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+            <td class="table-cell">Real-Time Guidance</td>
+            <td class="table-cell our-app" style="color: #4CAF50;">✓</td>
+            <td class="table-cell" style="color: #f44336;">✕</td>
+            <td class="table-cell" style="color: #f44336;">✕</td>
           </tr>
           <tr>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">AI-Based Composition Suggestions</td>
-            <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+            <td class="table-cell">AI-Based Composition</td>
+            <td class="table-cell our-app" style="color: #4CAF50;">✓</td>
+            <td class="table-cell" style="color: #f44336;">✕</td>
+            <td class="table-cell" style="color: #f44336;">✕</td>
           </tr>
           <tr>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ffffff;">Works Before Taking Photo</td>
-            <td class="table-cell our-app" style="padding: 15px; border-bottom: 1px solid #333; color: #4CAF50;">✓</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #ff9800;">Limited</td>
-            <td class="table-cell" style="padding: 15px; border-bottom: 1px solid #333; color: #f44336;">✕</td>
+            <td class="table-cell">Works Before Photo</td>
+            <td class="table-cell our-app" style="color: #4CAF50;">✓</td>
+            <td class="table-cell" style="color: #ff9800;">Limited</td>
+            <td class="table-cell" style="color: #f44336;">✕</td>
           </tr>
           <tr>
-            <td class="table-cell" style="padding: 15px; color: #ffffff;">Smartphone First</td>
-            <td class="table-cell our-app" style="padding: 15px; color: #4CAF50;">✓</td>
-            <td class="table-cell" style="padding: 15px; color: #4CAF50;">✓</td>
-            <td class="table-cell" style="padding: 15px; color: #4CAF50;">✓</td>
+            <td class="table-cell">Smartphone First</td>
+            <td class="table-cell our-app" style="color: #4CAF50;">✓</td>
+            <td class="table-cell" style="color: #4CAF50;">✓</td>
+            <td class="table-cell" style="color: #4CAF50;">✓</td>
           </tr>
         </tbody>
       </table>
